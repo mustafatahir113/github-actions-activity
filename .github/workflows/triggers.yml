@@ -1,5 +1,4 @@
-
-name: Workflow Triggers Demo
+name: Contexts and Conditionals Demo
 
 on:
   push:
@@ -12,14 +11,39 @@ on:
       - main
       - dev
 
+env:
+  DEMO_MESSAGE: "GitHub Actions Context Demo"
+
 jobs:
-  show-event:
+  context-demo:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Show event information
+      - name: Show context information
         run: |
           echo "Workflow trigger test successful!"
+          echo "Actor: ${{ github.actor }}"
           echo "Event: ${{ github.event_name }}"
           echo "Branch: ${{ github.ref_name }}"
-          echo "Actor: ${{ github.actor }}"
+          echo "Runner OS: ${{ runner.os }}"
+          echo "Environment variable: $DEMO_MESSAGE"
+
+      - name: Success condition
+        if: success()
+        run: |
+          echo "This step runs because previous steps succeeded."
+
+      - name: Contains condition
+        if: contains(github.event_name, 'push')
+        run: |
+          echo "This step runs for a push event."
+
+      - name: Failure condition
+        if: failure()
+        run: |
+          echo "A previous step failed."
+
+      - name: Always condition
+        if: always()
+        run: |
+          echo "This step always runs."
