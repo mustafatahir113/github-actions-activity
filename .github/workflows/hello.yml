@@ -10,4 +10,4 @@ jobs:
 
     steps:
       - name: Print greeting
-        run: echo "Hello! My first GitHub Actions workflow is working."
+        run: echo "Hello from dev branch!"
