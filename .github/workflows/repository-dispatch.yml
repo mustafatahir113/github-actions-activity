@@ -1,0 +1,14 @@
+
+name: Repository Dispatch Demo
+
+on:
+  repository_dispatch:
+    types: [custom-event]
+  workflow_dispatch:
+
+jobs:
+  dispatch-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Show dispatch message
+        run: echo "Repository dispatch event received!"
