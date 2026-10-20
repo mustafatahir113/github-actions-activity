@@ -10,7 +10,7 @@ jobs:
 
     steps:
       - name: Show runner details
-        shell: pwsh
+        shell: powershell
         run: |
           Write-Output "Self-hosted runner is working!"
           Write-Output "Operating System: $env:RUNNER_OS"
