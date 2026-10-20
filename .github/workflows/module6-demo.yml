@@ -30,8 +30,10 @@ jobs:
       - name: Show runner
         run: echo "Matrix runner: ${{ runner.os }}"
 
+  
   service-container:
     runs-on: ubuntu-latest
+
     services:
       postgres:
         image: postgres:16
@@ -41,12 +43,9 @@ jobs:
           POSTGRES_DB: testdb
         ports:
           - 5432:5432
-        options: >-
-          --health-cmd "pg_isready -U runner -d testdb"
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
+        options: --health-cmd "pg_isready -U runner -d testdb" --health-interval 10s --health-timeout 5s --health-retries 5
 
     steps:
       - name: Verify PostgreSQL service
         run: echo "PostgreSQL service container configured"
+
