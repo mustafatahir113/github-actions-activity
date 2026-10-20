@@ -1,0 +1,17 @@
+
+name: Self Hosted Runner Demo
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test-self-hosted:
+    runs-on: [self-hosted, Windows, X64, my-local-runner]
+
+    steps:
+      - name: Show runner details
+        shell: pwsh
+        run: |
+          Write-Output "Self-hosted runner is working!"
+          Write-Output "Operating System: $env:RUNNER_OS"
+          Write-Output "Computer: $env:COMPUTERNAME"
