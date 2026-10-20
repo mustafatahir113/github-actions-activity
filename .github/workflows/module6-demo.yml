@@ -27,6 +27,9 @@ jobs:
           path: ~/.npm
           key: npm-${{ runner.os }}-node20
 
+      - name: Install npm package for cache
+        run: npm install lodash --ignore-scripts
+
       - name: Show runner
         run: |
           echo "Matrix runner: ${{ runner.os }}"
