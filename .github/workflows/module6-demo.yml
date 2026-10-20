@@ -24,10 +24,17 @@ jobs:
       - name: Cache npm
         uses: actions/cache@v4
         with:
-          path: ~/.npm
+          path: .github/npm-cache-demo
           key: npm-${{ runner.os }}-node20
 
-      - name: Install npm package for cache
+      - name: Create dependency cache data
+        shell: bash
+        run: |
+          mkdir -p .github/npm-cache-demo
+          echo "Node.js 20 dependency cache for $RUNNER_OS" > .github/npm-cache-demo/cache.txt
+          echo "Cache data created successfully."
+
+      - name: Install npm package
         run: npm install lodash --ignore-scripts
 
       - name: Show runner
