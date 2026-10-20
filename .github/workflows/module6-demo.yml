@@ -8,7 +8,6 @@ jobs:
   matrix-cache:
     name: Matrix - ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
-
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
@@ -33,7 +32,6 @@ jobs:
 
   service-container:
     runs-on: ubuntu-latest
-
     services:
       postgres:
         image: postgres:16
@@ -51,6 +49,4 @@ jobs:
 
     steps:
       - name: Verify PostgreSQL service
-        run: |
-          echo "PostgreSQL service container configured"
-          echo "Port mapping: 5432:5432"
+        run: echo "PostgreSQL service container configured"
