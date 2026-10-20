@@ -1,0 +1,23 @@
+name: Module 7 - Custom JavaScript Action
+
+on:
+  workflow_dispatch:
+
+jobs:
+  custom-action:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run Custom JavaScript Action
+        id: greeting
+        uses: mustafatahir113/github-actions-custom-action@v1.0.0
+        with:
+          name: Mustafa
+
+      - name: Show Action Output
+        run: |
+          echo "Custom action output:"
+          echo "${{ steps.greeting.outputs.greeting }}"
