@@ -1,0 +1,52 @@
+
+name: Module 6 - Matrix Cache Services
+
+on:
+  workflow_dispatch:
+
+jobs:
+  matrix-cache:
+    name: Matrix - ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js with cache
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      - name: Show runner
+        run: echo "Matrix runner: ${{ runner.os }}"
+
+  service-container:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: runner
+          POSTGRES_PASSWORD: runnerpass
+          POSTGRES_DB: testdb
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U runner -d testdb"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Verify PostgreSQL service
+        run: |
+          echo "PostgreSQL service container configured"
+          echo "Port mapping: 5432:5432"
